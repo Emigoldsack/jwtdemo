@@ -1,14 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.example.jwtdemo.service;
 
-/**
- *
- * @author Mariela
- */
-public class CustomUserDetailService {
+
+import java.util.ArrayList;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CustomUserDetailService implements UserDetailsService {
+
+    //this method acctually does the validation for user existence
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        
+        //her yo can make a DB call whit the help of repository and do the validation 
+        if(userName.equals("John")){
+           return new User("Jonh", "secret", new ArrayList<>()); 
+        }else{
+            throw new UsernameNotFoundException("User does not exist!");
+        }
+    }
     
 }
